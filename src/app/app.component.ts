@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+﻿import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-//entry point into application
+import { AuthenticationService } from './_services';
+import { User, Role } from './_models';
 
-@Component({
-  selector: 'app-root', //html tag
-  templateUrl: './app.component.html', //html source
-  styleUrls: ['./app.component.css'], //app css source
-})
-export class AppComponent implements OnInit {
-  editorForm: FormGroup;
-  output: string;
+@Component({ selector: 'app', templateUrl: 'app.component.html' })
+export class AppComponent {
+    currentUser: User;
 
-  onSubmit() {
-    this.output = this.editorForm.get('editor').value;
-  }
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    }
 
-  ngOnInit() {
-    this.editorForm = new FormGroup({
-      editor: new FormControl(null),
-    });
-  }
+    get isAdmin() {
+        return this.currentUser && this.currentUser.role === Role.Admin;
+    }
+
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
+    }
 }

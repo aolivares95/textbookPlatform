@@ -1,12 +1,14 @@
-<div class="container">
-  <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="text-editor">
-        <h3>Quill Text Editor</h3>
-      </label>
-      <quill-editor formControlName="editor"></quill-editor>
+﻿<!-- nav -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
     </div>
-    <button>Submit</button>
-  </form>
-  <h3>Output: {{ output }}</h3>
+</nav>
+
+<!-- main app container -->
+<div class="container">
+    <router-outlet></router-outlet>
 </div>
+
