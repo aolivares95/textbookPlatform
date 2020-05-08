@@ -4,10 +4,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuillModule } from 'ngx-quill';
 import { ReactiveFormsModule } from '@angular/forms';
-// import 'bootstrap';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent], //declare angular components
+  declarations: [AppComponent, HeaderComponent], //declare angular components
   imports: [
     BrowserModule,
     AppRoutingModule,

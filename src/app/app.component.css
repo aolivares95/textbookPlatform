@@ -7,3 +7,7 @@ button {
   background-color: rgb(40, 134, 196);
   color: white;
 }
+
+.editor-padding {
+  margin-top: 100px;
+}
