@@ -1,21 +1,33 @@
 ﻿<div class="card mt-4">
-    <h4 class="card-header">Admin</h4>
-    <div class="card-body">
-        <p>This page can be accessed <u>only by administrators</u>.</p>
-        <p class="mb-1">All users from secure (admin only) api end point:</p>
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <ul *ngIf="users">
-            <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
-        </ul>
-    </div>
+  <h4 class="card-header">Admin</h4>
+  <div class="card-body">
+    <p>This page can be accessed <u>only by administrators</u>.</p>
+    <p class="mb-1">All users from secure (admin only) api end point:</p>
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <ul *ngIf="users">
+      <li *ngFor="let user of users">
+        {{ user.firstName }} {{ user.lastName }}
+      </li>
+    </ul>
+  </div>
 
-    <div class="card-body">
-        <div id="quill">
-            <p>QuillJS</p>
-            <quill-editor placeholder="Enter Text">
-            </quill-editor>
-        </div>
+  <div class="card-body">
+    <div id="quill">
+      <p>QuillJS</p>
+      <form [formGroup]="editorForm" (ngSubmit)="onSubmit($event)">
+        <quill-editor
+          formControlName="editor"
+          name="quill-editor"
+          placeholder="Enter Text"
+          format="text"
+          (onContentChanged)="quillOutput($event)"
+        >
+        </quill-editor>
+        <button class="btn btn-primary" type="submit">
+          Submit
+        </button>
+        <p>User Output: {{ outputToUser }}</p>
+      </form>
     </div>
-
-    
+  </div>
 </div>
