@@ -10,15 +10,16 @@ export class AdminComponent implements OnInit {
   loading = false;
   users: User[] = [];
   editorForm: FormGroup;
-  outputToUser: HTMLElement;
+  outputToUser: string;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.editorForm = new FormGroup({
       editor: new FormControl(null),
+      viewOnly: new FormControl(null),
     });
-
+    this.outputToUser = '';
     this.loading = true;
     this.userService
       .getAll()
@@ -29,9 +30,26 @@ export class AdminComponent implements OnInit {
       });
   }
   quillOutput(e) {
-    console.log(JSON.stringify(e.oldDelta));
+    console.log(
+      'content: ' +
+        JSON.stringify(e.content) +
+        ' delta: ' +
+        JSON.stringify(e.delta) +
+        ' editor (QuillEditorInstance).getText(): ' +
+        JSON.stringify(e.editor.getText()) +
+        ' html: ' +
+        e.html +
+        ' oldDelta: ' +
+        JSON.stringify(e.oldDelta) +
+        ' source: ' +
+        e.source +
+        ' text:' +
+        e.text
+    );
+    this.outputToUser = e.html;
   }
   onSubmit(e) {
-    this.outputToUser = this.editorForm.controls['editor'].value;
+    this.editorForm.controls['viewOnly'].setValue(this.outputToUser);
+    console.log(JSON.stringify(e));
   }
 }

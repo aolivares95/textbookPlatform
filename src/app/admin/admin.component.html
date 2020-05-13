@@ -26,7 +26,12 @@
         <button class="btn btn-primary" type="submit">
           Submit
         </button>
-        <p>User Output: {{ outputToUser }}</p>
+        <h1>View Only</h1>
+        <quill-editor
+          formControlName="viewOnly"
+          readOnly="true"
+          theme="snow"
+        ></quill-editor>
       </form>
     </div>
   </div>
